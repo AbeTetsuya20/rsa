@@ -1,10 +1,16 @@
 import random
 import math
 import hashlib
+import time
 
 # n は鍵の bit 長
-Max_bit = 100
+Max_bit = 2048
 
+# 100: 0.007398843765258789
+# 500: 0.33533811569213867
+# 1024: 2.70386004447937
+# 1500: 6.355698108673096
+# 2048: 15.969524145126343
 
 # テスト
 def key_test(key):
@@ -164,19 +170,27 @@ def encoding_message(message):
 def main():
     global Max_bit
 
-    # 鍵の生成とテスト
-    key = make_key(Max_bit)
-    printer(key)
-    key_test(key)
+    # 素数生成の時間を計測する
+    start = time.time()
+    prime = make_prime(pow(2, Max_bit - 1), pow(2, Max_bit) - 1)
+    end = time.time()
 
-    # 暗号化・復号化
-    message = encoding_message("hello")
-    enc_result = rsa_enc(key, message)
-    dec_result = rsa_dec(key, enc_result)
+    print("素数生成時間: ", end - start)
+    print("素数: ", prime)
 
-    print("平文: " , message)
-    print("エンコード後: " , enc_result)
-    print("デコード後: " , dec_result)
+#     # 鍵の生成とテスト
+#     key = make_key(Max_bit)
+#     printer(key)
+#     key_test(key)
+#
+#     # 暗号化・復号化
+#     message = encoding_message("hello")
+#     enc_result = rsa_enc(key, message)
+#     dec_result = rsa_dec(key, enc_result)
+#
+#     print("平文: " , message)
+#     print("エンコード後: " , enc_result)
+#     print("デコード後: " , dec_result)
 
 
 if __name__ == "__main__":
