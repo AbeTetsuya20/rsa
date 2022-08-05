@@ -4,7 +4,7 @@ import hashlib
 import time
 
 # n は鍵の bit 長
-Max_bit = 2048
+Max_bit = 100
 
 # 100: 0.007398843765258789
 # 500: 0.33533811569213867
@@ -170,13 +170,13 @@ def encoding_message(message):
 def main():
     global Max_bit
 
-    # 素数生成の時間を計測する
+    # 素数生成の時間を3回計測して、その平均を求める
     start = time.time()
-    prime = make_prime(pow(2, Max_bit - 1), pow(2, Max_bit) - 1)
+    for i in range(3):
+        prime = make_prime(pow(2, Max_bit - 1), pow(2, Max_bit) - 1)
     end = time.time()
+    print("素数生成時間: ", (end - start) / 3)
 
-    print("素数生成時間: ", end - start)
-    print("素数: ", prime)
 
 #     # 鍵の生成とテスト
 #     key = make_key(Max_bit)

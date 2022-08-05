@@ -8,15 +8,18 @@ import (
 
 func main() {
 
-	// 素数を生成する時間を計測する
-	start := time.Now()
-	prime, err := application.MakePrime(2048)
-	if err != nil {
-		panic(fmt.Sprintf("Error: %s", "素数を生成できない"))
+	// 素数生成する時間を3回計測して、その平均を出力する
+	var total time.Duration
+	for i := 0; i < 3; i++ {
+		start := time.Now()
+		_, err := application.MakePrime(3000)
+		if err != nil {
+			panic(fmt.Sprintf("Error: %s", "素数を生成できない"))
+		}
+		end := time.Now()
+		total += end.Sub(start)
 	}
-	end := time.Now()
-	fmt.Println("素数を生成しました:", prime)
-	fmt.Println("生成にかかった時間:", end.Sub(start))
+	fmt.Println("生成にかかった時間:", total/3)
 
 }
 
